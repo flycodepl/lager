@@ -125,7 +125,7 @@ open_logfile(Name, Buffer) ->
     case filelib:ensure_dir(Name) of
         ok ->
             Options = [append] ++
-            case node() =:= node(erlang:group_leader()) of
+            case init:get_argument(mode) =:= {ok, [["worker"]]} of
                 true  ->
                     [raw]; %% use raw when group leader is on current node
                 false ->
